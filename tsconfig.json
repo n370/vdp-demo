@@ -3,7 +3,7 @@
         "rootDir": "./src",
         "lib": ["esnext"],
         "target": "es6",
-        "module": "CommonJS",
+        "module": "esnext",
         "moduleResolution": "node",
         "outDir": "./dist",
         "jsx": "react-jsx",

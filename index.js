@@ -9,9 +9,11 @@ const { renderTemplate } = require("./dist");
 exports.getCV = (req, res) => {
   renderTemplate({
     data: {
-        translations: {
-            title: "Hello World",
+      translations: {
+        en_US: {
+          title: "Hello World",
         },
+      },
     },
   }).then((pdfBuffer) => {
     res.status(200);
