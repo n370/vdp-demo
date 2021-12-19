@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "lib": ["esnext"],
+        "target": "es6",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "jsx": "react-jsx",
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "strict": true,
+        "preserveConstEnums": true,
+        "skipLibCheck": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+    },
+    "include": ["src/**/*.tsx", "src/**/*.ts"]
+}

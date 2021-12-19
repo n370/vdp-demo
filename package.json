@@ -1,0 +1,19 @@
+{
+    "name": "vdp-demo",
+    "version": "0.0.0",
+    "scripts": {
+        "start": "tsc-watch --onSuccess \"node develop.js\"",
+        "build": "tsc",
+        "pack": "zip -vr $(node -p \"Date.now()\").zip dist fonts package.json index.js"
+    },
+    "devDependencies": {
+        "@types/node": "16.10.1",
+        "@types/react": "17.0.24",
+        "tsc-watch": "*",
+        "typescript": "*"
+    },
+    "dependencies": {
+        "@react-pdf/renderer": "~2",
+        "react": "*"
+    }
+}
