@@ -3,26 +3,26 @@ import { JSDOM } from "jsdom";
 import * as d3 from "d3";
 
 export async function drawChart(cb: any) {
-  const { window } = new JSDOM();
+    const { window } = new JSDOM();
 
-  const svg = d3.select(window.document.body).append("svg");
+    const svg = d3.select(window.document.body).append("svg");
 
-  cb(svg);
+    const [width, height] = cb(svg);
 
-  const canvas = createCanvas(1000, 1000);
+    const canvas = createCanvas(width, height);
 
-  const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
-  const svgString = window.document.querySelector("svg").outerHTML;
+    const svgString = window.document.querySelector("svg").outerHTML;
 
-  const image = await new Promise((resolve) => {
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.src =
-      "data:image/svg+xml;base64," + Buffer.from(svgString).toString("base64");
-  });
+    const image = await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.src =
+        "data:image/svg+xml;base64," + Buffer.from(svgString).toString("base64");
+    });
 
-  ctx.drawImage(image, 0, 0);
+    ctx.drawImage(image, 0, 0);
 
-  return canvas.toBuffer("image/png");
+    return canvas.toBuffer("image/png");
 }

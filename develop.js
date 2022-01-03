@@ -1,9 +1,13 @@
 const { createWriteStream } = require("fs");
 const { renderTemplate } = require("./dist");
-const data = require("./mock.json");
+const mock = require("./mock.json");
 
-renderTemplate({ data }).then((pdfBuffer) => {
-  pdfBuffer
-    .pipe(createWriteStream("cv.pdf"))
-    .on("close", () => console.log("done"));
+renderTemplate({
+    translations: mock.translations["en_US"],
+    // translations: mock.translations["pt_BR"],
+    data: mock.data,
+}).then((pdfBuffer) => {
+    pdfBuffer
+        .pipe(createWriteStream("cv.pdf"))
+        .on("close", () => console.log("done"));
 });

@@ -13,21 +13,30 @@ export async function renderTemplate(props: any) {
                 fontWeight: "normal",
             },
             {
-                src: join(__dirname, "..", "fonts", "Roboto", "Roboto-Black.ttf"),
+                src: join(__dirname, "..", "fonts", "Roboto", "Roboto-Medium.ttf"),
+                fontWeight: "medium",
+            },
+            {
+                src: join(__dirname, "..", "fonts", "Roboto", "Roboto-Bold.ttf"),
                 fontWeight: "bold",
             },
         ],
     });
 
     const chart = drawChart((svg: any) => {
+        const width = 1000;
+        const height = 1000;
+
         svg
-            .attr('width', 1000)
-            .attr('height', 1000)
+            .attr('width', width)
+            .attr('height', height)
             .append("circle")
-            .attr("cx", 500)
-            .attr("cy", 500)
+            .attr("cx", width/2)
+            .attr("cy", height/2)
             .attr("r", 40)
             .style("fill", "blue");
+
+        return [width, height]
     })
 
     return ReactPDF.renderToStream(<Template {...{ ...props, image: chart }} />);
