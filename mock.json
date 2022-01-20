@@ -1,80 +1,38 @@
 {
-    "translations": {
-        "en_US": {
-            "title": "Invoice",
-            "invoiceNumber": "Invoice No",
-            "invoiceDate": "Invoice Date",
-            "dueDate": "Due Date",
-            "billTo": "Bill to",
-            "workItemDescription": "Description",
-            "workItemQuantity": "Qty",
-            "workItemUnitPrice": "Unit price",
-            "workItemCurrencySymbol": "US$",
-            "workItemTotal": "Total",
-            "gratitudeMessage": "Thank you for your business!",
-            "balanceDue": "Balance due",
-            "paymentInstructionsTitle": "Payment Instructions",
-            "paymentInstructionsSubTittle": "Please make an international transfer to",
-            "bankAccountName": "Account Name",
-            "bankAccountNumber": "Account Number",
-            "bankAccountBIC": "BIC"
+    "metadata": {
+        "invoiceNumber": "",
+        "invoiceDate": "",
+        "dueDate": ""
+    },
+    "issuer": {
+        "fullName": "Dylson Valente Neto",
+        "idNumber": "0.000.000-0",
+        "address": {
+            "line1": "Charrúa 0000, Apto. 200",
+            "line2": "Montevideo, 11000, Uruguay"
         },
-        "pt_BR": {
-            "title": "Fatura",
-            "invoiceNumber": "Número da fatura",
-            "invoiceDate": "Data de emissão",
-            "dueDate": "Data de vencimento",
-            "billTo": "Se fatura a",
-            "workItemDescription": "Descrição",
-            "workItemQuantity": "Quantidade",
-            "workItemUnitPrice": "Preço unitário",
-            "workItemCurrencySymbol": "US$",
-            "workItemTotal": "Total",
-            "gratitudeMessage": "Obrigado por trabalhar conosco!",
-            "balanceDue": "Total a pagar",
-            "paymentInstructionsTitle": "Instruções para pagamento",
-            "paymentInstructionsSubTittle": "Fvoer realizar uma transferência internacional para:",
-            "bankAccountName": "Beneficiário",
-            "bankAccountNumber": "Número da Conta",
-            "bankAccountBIC": "BIC"
+        "email": "me@example.com",
+        "phoneNumber": "+598 0 97066874",
+        "bankDetails": {
+            "name": "BANCO BUENO S.A.",
+            "accountName": "Dylson Valente Neto",
+            "accountNumber": "12345678",
+            "bic": "BUENOUYMMXXX"
         }
     },
-    "data": {
-        "metadata": {
-            "invoiceNumber": "",
-            "invoiceDate": "",
-            "dueDate": ""
+    "billTo": {
+        "name": "Nice Client Inc",
+        "address": {
+            "line1": "C/O Enterprise Tower",
+            "line2": "1234 Blue St. Nice Land, NL 12345"
         },
-        "issuer": {
-            "fullName": "Dylson Valente Neto",
-            "idNumber": "0.000.000-0",
-            "address": {
-                "line1": "Charrúa 0000, Apto. 200",
-                "line2": "Montevideo, 11000, Uruguay"
-            },
-            "email": "me@example.com",
-            "phoneNumber": "+598 0 97066874",
-            "bankDetails": {
-                "name": "BANCO BUENO S.A.",
-                "accountName": "Dylson Valente Neto",
-                "accountNumber": "12345678",
-                "bic": "BUENOUYMMXXX"
-            }
-        },
-        "billTo": {
-            "name": "Nice Client Inc",
-            "address": {
-                "line1": "C/O Enterprise Tower",
-                "line2": "1234 Blue St. Nice Land, NL 12345"
-            },
-            "phoneNumber": "+0 000 000 0000"
-        },
-        "workItems": [
-            {
-                "description": "Super Nice Project, Working day",
-                "quantity": 20,
-                "price": 10
-            }
-        ]
-    }
+        "phoneNumber": "+0 000 000 0000"
+    },
+    "workItems": [
+        {
+            "description": "Super Nice Project, Working day",
+            "quantity": 20,
+            "price": 10
+        }
+    ]
 }

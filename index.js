@@ -6,17 +6,10 @@ const { renderTemplate } = require("./dist");
  * @param {!express:Request} req HTTP request context.
  * @param {!express:Response} res HTTP response context.
  */
-exports.getCV = (req, res) => {
-  renderTemplate({
-    data: {
-      translations: {
-        en_US: {
-          title: "Hello World",
-        },
-      },
-    },
-  }).then((pdfBuffer) => {
-    res.status(200);
-    pdfBuffer.pipe(res).on("close", () => console.log("done"));
-  });
+exports.getInvoice = (req, res) => {
+    renderTemplate(req.body, req.query.locale).then((pdfBuffer) => {
+        res.type("pdf");
+        res.status(200);
+        pdfBuffer.pipe(res).on("close", () => console.log("done"));
+    });
 };

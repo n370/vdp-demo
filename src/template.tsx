@@ -1,10 +1,20 @@
+import { FC } from "react";
 import { Document, Image, Page, View, Text } from "@react-pdf/renderer";
 import { v4 as uuid } from "uuid";
 import { format, endOfMonth } from "date-fns";
 import styles from "./styles";
 import { sumWorkItemsTotal } from "./utils";
+import * as translations from "./translations";
 
-export const Template = ({ translations, data, image }: any) => {
+interface TemplateProps {
+    locale: keyof typeof translations
+    data: any
+    image: any
+}
+
+export const Template: FC<TemplateProps> = ({ locale, data, image }) => {
+    const translation = translations[locale]
+
     return (
         <Document>
             <Page style={{ ...styles.page, fontFamily: "Roboto" }}>
@@ -22,13 +32,12 @@ export const Template = ({ translations, data, image }: any) => {
                             textTransform: "uppercase",
                         }}
                     >
-                        {translations.title}
+                        {translation.title}
                     </Text>
                 </View>
                 <View
                     style={{
                         ...styles.block,
-
                         flexDirection: "row",
                     }}
                 >
@@ -77,7 +86,7 @@ export const Template = ({ translations, data, image }: any) => {
                                     fontSize: 9,
                                 }}
                             >
-                                {translations.invoiceNumber}:{" "}
+                                {translation.invoiceNumber}:{" "}
                             </Text>
                             <Text style={{ fontSize: 10 }}>{uuid()}</Text>
                         </View>
@@ -89,7 +98,7 @@ export const Template = ({ translations, data, image }: any) => {
                                     fontSize: 9,
                                 }}
                             >
-                                {translations.invoiceDate}:{" "}
+                                {translation.invoiceDate}:{" "}
                             </Text>
                             <Text style={{ fontSize: 10 }}>
                                 {format(Date.now(), "MM/dd/yyyy")}
@@ -103,7 +112,7 @@ export const Template = ({ translations, data, image }: any) => {
                                     fontSize: 9,
                                 }}
                             >
-                                {translations.dueDate}:{" "}
+                                {translation.dueDate}:{" "}
                             </Text>
                             <Text style={{ fontSize: 10 }}>
                                 {format(endOfMonth(Date.now()), "MM/dd/yyyy")}
@@ -122,7 +131,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 fontSize: 9,
                             }}
                         >
-                            {translations.billTo}:
+                            {translation.billTo}:
                         </Text>
                         <Text style={{ fontSize: 10 }}>{data.billTo.name}</Text>
                         <Text style={{ fontSize: 10 }}>
@@ -160,7 +169,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 flexBasis: "50%",
                             }}
                         >
-                            <Text>{translations.workItemDescription}</Text>
+                            <Text>{translation.workItemDescription}</Text>
                         </View>
                         <View
                             style={{
@@ -169,7 +178,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 flexBasis: `${50 / 3}%`,
                             }}
                         >
-                            <Text>{translations.workItemQuantity}</Text>
+                            <Text>{translation.workItemQuantity}</Text>
                         </View>
                         <View
                             style={{
@@ -178,7 +187,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 flexBasis: `${50 / 3}%`,
                             }}
                         >
-                            <Text>{translations.workItemUnitPrice}</Text>
+                            <Text>{translation.workItemUnitPrice}</Text>
                         </View>
                         <View
                             style={{
@@ -187,7 +196,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 flexBasis: `${50 / 3}%`,
                             }}
                         >
-                            <Text>{translations.workItemTotal}</Text>
+                            <Text>{translation.workItemTotal}</Text>
                         </View>
                     </View>
                     {data.workItems.map((item: any, id: number) => (
@@ -221,7 +230,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 }}
                             >
                                 <Text>
-                                    {translations.workItemCurrencySymbol}{" "}
+                                    {translation.workItemCurrencySymbol}{" "}
                                     {item.price}
                                 </Text>
                             </View>
@@ -233,7 +242,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 }}
                             >
                                 <Text>
-                                    {translations.workItemCurrencySymbol}{" "}
+                                    {translation.workItemCurrencySymbol}{" "}
                                     {item.quantity * item.price}
                                 </Text>
                             </View>
@@ -248,7 +257,7 @@ export const Template = ({ translations, data, image }: any) => {
                         }}
                     >
                         <Text style={{ fontSize: 14 }}>
-                            {translations.gratitudeMessage}
+                            {translation.gratitudeMessage}
                         </Text>
                     </View>
                     <View
@@ -267,10 +276,10 @@ export const Template = ({ translations, data, image }: any) => {
                                 fontSize: 12,
                             }}
                         >
-                            {translations.balanceDue}
+                            {translation.balanceDue}
                         </Text>
                         <Text>
-                            {translations.workItemCurrencySymbol}{" "}
+                            {translation.workItemCurrencySymbol}{" "}
                             {sumWorkItemsTotal(data.workItems)}
                         </Text>
                     </View>
@@ -284,10 +293,10 @@ export const Template = ({ translations, data, image }: any) => {
                                 fontSize: 12,
                             }}
                         >
-                            {translations.paymentInstructionsTitle}
+                            {translation.paymentInstructionsTitle}
                         </Text>
                         <Text>
-                            {translations.paymentInstructionsSubTittle}:
+                            {translation.paymentInstructionsSubTittle}:
                         </Text>
                     </View>
                     <Text
@@ -308,7 +317,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 textTransform: "uppercase",
                             }}
                         >
-                            {translations.bankAccountBIC}:{" "}
+                            {translation.bankAccountBIC}:{" "}
                         </Text>
                         <Text>{data.issuer.bankDetails.bic}</Text>
                     </View>
@@ -322,7 +331,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 textTransform: "uppercase",
                             }}
                         >
-                            {translations.bankAccountName}:{" "}
+                            {translation.bankAccountName}:{" "}
                         </Text>
                         <Text>{data.issuer.bankDetails.accountName}</Text>
                     </View>
@@ -336,7 +345,7 @@ export const Template = ({ translations, data, image }: any) => {
                                 textTransform: "uppercase",
                             }}
                         >
-                            {translations.bankAccountNumber}:{" "}
+                            {translation.bankAccountNumber}:{" "}
                         </Text>
                         <Text>{data.issuer.bankDetails.accountNumber}</Text>
                     </View>

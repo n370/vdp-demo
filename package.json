@@ -6,11 +6,13 @@
         "develop": "rollup -c rollup.config.js -w src/",
         "bundle": "rollup -c rollup.config.js",
         "local": "chokidar \"dist/*.js\" \"./develop.js\" \"./mock.json\" -c \"node develop.js\"",
+        "start:function": "npx @google-cloud/functions-framework --target=getInvoice",
         "zip": "zip -vr $(node -p \"Date.now()\").zip dist fonts package.json index.js",
         "discard": "rimraf *.zip",
         "pack": "run-s discard bundle zip"
     },
     "devDependencies": {
+        "@google-cloud/functions-framework": "2.1.0",
         "@rollup/plugin-commonjs": "21.0.1",
         "@rollup/plugin-node-resolve": "13.1.1",
         "@rollup/plugin-typescript": "8.3.0",
