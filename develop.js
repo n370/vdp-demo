@@ -4,6 +4,6 @@ const mock = require("./mock.json");
 
 renderTemplate(mock).then((pdfBuffer) => {
     pdfBuffer
-        .pipe(createWriteStream("cv.pdf"))
+        .pipe(createWriteStream("document.pdf"))
         .on("close", () => console.log("done"));
 });

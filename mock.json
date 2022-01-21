@@ -33,6 +33,11 @@
             "description": "Super Nice Project, Working day",
             "quantity": 20,
             "price": 10
+        },
+        {
+            "description": "International bank transfer fee",
+            "quantity": 1,
+            "price": 10
         }
     ]
 }

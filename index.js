@@ -7,9 +7,11 @@ const { renderTemplate } = require("./dist");
  * @param {!express:Response} res HTTP response context.
  */
 exports.getInvoice = (req, res) => {
-    renderTemplate(req.body, req.query.locale).then((pdfBuffer) => {
+    renderTemplate(req.body, req.query.locale).then((stream) => {
         res.type("pdf");
         res.status(200);
-        pdfBuffer.pipe(res).on("close", () => console.log("done"));
+        stream
+            .pipe(res)
+            .on("close", () => console.log("Document generated successfully"));
     });
 };

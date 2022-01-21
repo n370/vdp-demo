@@ -5,15 +5,14 @@ import { format, endOfMonth } from "date-fns";
 import styles from "./styles";
 import { sumWorkItemsTotal } from "./utils";
 import * as translations from "./translations";
-
+import { draw, pieChart } from "./charts";
 interface TemplateProps {
-    locale: keyof typeof translations
-    data: any
-    image: any
+    locale: keyof typeof translations;
+    data: any;
 }
 
-export const Template: FC<TemplateProps> = ({ locale, data, image }) => {
-    const translation = translations[locale]
+export const Template: FC<TemplateProps> = ({ locale, data }) => {
+    const translation = translations[locale];
 
     return (
         <Document>
@@ -284,6 +283,16 @@ export const Template: FC<TemplateProps> = ({ locale, data, image }) => {
                         </Text>
                     </View>
                 </View>
+                <View>
+                    <Image
+                        src={async () => ({
+                            data: await draw((svg: any) =>
+                                pieChart(svg, data.workItems)
+                            ),
+                            format: "png",
+                        })}
+                    />
+                </View>
                 <View style={{ fontSize: 11 }}>
                     <View style={{ marginBottom: 5 }}>
                         <Text
@@ -295,9 +304,7 @@ export const Template: FC<TemplateProps> = ({ locale, data, image }) => {
                         >
                             {translation.paymentInstructionsTitle}
                         </Text>
-                        <Text>
-                            {translation.paymentInstructionsSubTittle}:
-                        </Text>
+                        <Text>{translation.paymentInstructionsSubTittle}:</Text>
                     </View>
                     <Text
                         style={{
@@ -350,9 +357,6 @@ export const Template: FC<TemplateProps> = ({ locale, data, image }) => {
                         <Text>{data.issuer.bankDetails.accountNumber}</Text>
                     </View>
                 </View>
-            </Page>
-            <Page style={styles.page}>
-                <Image src={image} />
             </Page>
         </Document>
     );

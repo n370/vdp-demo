@@ -1,7 +1,6 @@
 import ReactPDF, { Font } from "@react-pdf/renderer";
 import { Template } from "./template";
 import { join } from "path";
-import { drawChart } from "./charts";
 import * as translations from "./translations";
 
 export async function renderTemplate(
@@ -44,22 +43,5 @@ export async function renderTemplate(
         ],
     });
 
-    const chart = drawChart((svg: any) => {
-        const width = 1000;
-        const height = 1000;
-
-        svg.attr("width", width)
-            .attr("height", height)
-            .append("circle")
-            .attr("cx", width / 2)
-            .attr("cy", height / 2)
-            .attr("r", 40)
-            .style("fill", "blue");
-
-        return [width, height];
-    });
-
-    return ReactPDF.renderToStream(
-        <Template data={data} locale={locale} image={chart} />
-    );
+    return ReactPDF.renderToStream(<Template data={data} locale={locale} />);
 }
