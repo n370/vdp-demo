@@ -1,47 +1,15 @@
-import ReactPDF, { Font } from "@react-pdf/renderer";
-import { Template } from "./template";
-import { join } from "path";
-import * as translations from "./translations";
+import ReactPDF from "@react-pdf/renderer";
+import { Template as InvoiceTemplate } from "./templates/invoice/template";
+import { Template as PosterTemplate } from "./templates/poster/template";
+import * as invoiceTranslations from "./templates/invoice/translations";
 
-export async function renderTemplate(
+export async function renderInvoiceTemplate(
     data: any,
-    locale: keyof typeof translations = "en_US"
+    locale: keyof typeof invoiceTranslations = "en_US"
 ) {
-    Font.register({
-        family: "Roboto",
-        fonts: [
-            {
-                src: join(
-                    __dirname,
-                    "..",
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Regular.ttf"
-                ),
-                fontWeight: "normal",
-            },
-            {
-                src: join(
-                    __dirname,
-                    "..",
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Medium.ttf"
-                ),
-                fontWeight: "medium",
-            },
-            {
-                src: join(
-                    __dirname,
-                    "..",
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Bold.ttf"
-                ),
-                fontWeight: "bold",
-            },
-        ],
-    });
+    return ReactPDF.renderToStream(<InvoiceTemplate data={data} locale={locale} />);
+}
 
-    return ReactPDF.renderToStream(<Template data={data} locale={locale} />);
+export async function renderPosterTemplate() {
+    return ReactPDF.renderToStream(<PosterTemplate />);
 }

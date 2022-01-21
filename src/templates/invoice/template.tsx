@@ -1,11 +1,13 @@
 import { FC } from "react";
-import { Document, Image, Page, View, Text } from "@react-pdf/renderer";
+import { Font, Document, Image, Page, View, Text } from "@react-pdf/renderer";
+import { join } from "path";
 import { v4 as uuid } from "uuid";
 import { format, endOfMonth } from "date-fns";
 import styles from "./styles";
-import { sumWorkItemsTotal } from "./utils";
+import { sumWorkItemsTotal } from "../../utils";
 import * as translations from "./translations";
 import { draw, pieChart } from "./charts";
+
 interface TemplateProps {
     locale: keyof typeof translations;
     data: any;
@@ -13,6 +15,42 @@ interface TemplateProps {
 
 export const Template: FC<TemplateProps> = ({ locale, data }) => {
     const translation = translations[locale];
+
+    Font.register({
+        family: "Roboto",
+        fonts: [
+            {
+                src: join(
+                    __dirname,
+                    "..",
+                    "fonts",
+                    "Roboto",
+                    "Roboto-Regular.ttf"
+                ),
+                fontWeight: "normal",
+            },
+            {
+                src: join(
+                    __dirname,
+                    "..",
+                    "fonts",
+                    "Roboto",
+                    "Roboto-Medium.ttf"
+                ),
+                fontWeight: "medium",
+            },
+            {
+                src: join(
+                    __dirname,
+                    "..",
+                    "fonts",
+                    "Roboto",
+                    "Roboto-Bold.ttf"
+                ),
+                fontWeight: "bold",
+            },
+        ],
+    });
 
     return (
         <Document>

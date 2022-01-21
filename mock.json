@@ -5,17 +5,17 @@
         "dueDate": ""
     },
     "issuer": {
-        "fullName": "Dylson Valente Neto",
+        "fullName": "Maria Marietta",
         "idNumber": "0.000.000-0",
         "address": {
-            "line1": "Charrúa 0000, Apto. 200",
-            "line2": "Montevideo, 11000, Uruguay"
+            "line1": "Calle 0000, Apto. 000",
+            "line2": "Madrid, 11000, Spain"
         },
-        "email": "me@example.com",
-        "phoneNumber": "+598 0 97066874",
+        "email": "maria@example.com",
+        "phoneNumber": "+000 0 00000000",
         "bankDetails": {
             "name": "BANCO BUENO S.A.",
-            "accountName": "Dylson Valente Neto",
+            "accountName": "Maria Marietta",
             "accountNumber": "12345678",
             "bic": "BUENOUYMMXXX"
         }
@@ -24,20 +24,22 @@
         "name": "Nice Client Inc",
         "address": {
             "line1": "C/O Enterprise Tower",
-            "line2": "1234 Blue St. Nice Land, NL 12345"
-        },
-        "phoneNumber": "+0 000 000 0000"
+            "line2": "1234 Blue St. Nice Land, NL 12345",
+            "phoneNumber": "+0 000 000 0000"
+        }
     },
     "workItems": [
         {
             "description": "Super Nice Project, Working day",
             "quantity": 20,
-            "price": 10
+            "price": 10,
+            "currency": "USD"
         },
         {
-            "description": "International bank transfer fee",
-            "quantity": 1,
-            "price": 10
+            "description": "Super Nice Project 2, Working day",
+            "quantity": 2,
+            "price": 15,
+            "currency": "USD"
         }
     ]
 }
