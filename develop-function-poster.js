@@ -1,9 +1,15 @@
 const { spawnSync } = require("child_process");
 const kill = require("kill-port");
 
-(async () => {
+main().catch(console.error);
+
+async function main() {
     await kill(8080, "tcp");
-    spawnSync("npx", ["@google-cloud/functions-framework", "--target=getPoster"], {
-        stdio: "inherit",
-    });
-})().catch(console.error);
+    spawnSync(
+        "npx",
+        ["@google-cloud/functions-framework", "--target=getPoster"],
+        {
+            stdio: "inherit",
+        }
+    );
+}

@@ -10,6 +10,6 @@ export async function renderInvoiceTemplate(
     return ReactPDF.renderToStream(<InvoiceTemplate data={data} locale={locale} />);
 }
 
-export async function renderPosterTemplate() {
-    return ReactPDF.renderToStream(<PosterTemplate />);
+export async function renderPosterTemplate(dynamic: boolean) {
+    return ReactPDF.renderToStream(<PosterTemplate dynamic={dynamic}/>);
 }

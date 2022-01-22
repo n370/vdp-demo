@@ -23,7 +23,7 @@ exports.getInvoice = (req, res) => {
  * @param {!express:Response} res HTTP response context.
  */
 exports.getPoster = (req, res) => {
-    renderPosterTemplate().then((stream) => {
+    renderPosterTemplate(true).then((stream) => {
         res.type("pdf");
         res.status(200);
         stream
