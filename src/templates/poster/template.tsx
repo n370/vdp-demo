@@ -2,7 +2,7 @@ import { join } from "path";
 import { FC } from "react";
 import { Font, Document, Text, Image, Page, View } from "@react-pdf/renderer";
 import styles from "./styles";
-import { getCoverPhoto, getStaticCoverPhoto } from "../../utils";
+import { getDynamicImage, getStaticImage } from "../../utils";
 
 interface TemplateProps {
     dynamic: boolean;
@@ -33,38 +33,45 @@ export const Template: FC<TemplateProps> = ({ dynamic }) => {
                         style={{ transform: "scale(2)" }}
                         src={async () => ({
                             data: dynamic
-                                ? await getCoverPhoto()
-                                : await getStaticCoverPhoto(),
+                                ? await getDynamicImage()
+                                : await getStaticImage("cover.jpg"),
                             format: "jpg",
                         })}
                     />
                 </View>
                 <View
                     style={{
+                        padding: 10,
                         height: "100%",
                         position: "absolute",
                         flexDirection: "column",
-                        justifyContent: "space-between"
+                        justifyContent: "space-between",
                     }}
                 >
                     <View style={{ width: "80%" }}>
                         <Text
                             hyphenationCallback={(word) => [word]}
                             style={{
+                                transform: "rotate(-5deg) translate(20 -20)",
+                                color: "#000",
                                 fontFamily: "FingerPaint",
-                                fontSize: 120,
+                                fontSize: 140,
                                 lineHeight: 1,
                             }}
                         >
-                            This Person Does Not Exist
+                            {`This\nArtwork\nDoes Not\nExist`}
                         </Text>
                     </View>
-                    <View>
-                        <View>
-                            <Text>An art exhibition</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <View style={{ flexBasis: "50%" }}>
+                            <Text>ONLINE EXHIBITION</Text>
+                            <Text>26 Feb 2022</Text>
                         </View>
-                        <View>
-                            <Text>Sponsored by</Text>
+                        <View style={{ flexBasis: "50%" }}>
+                            <Text>Based on Phil Wang's original work</Text>
+                            <View>
+                                <Text>https://thispersondoesnotexist.com/</Text>
+                            </View>
                         </View>
                     </View>
                 </View>

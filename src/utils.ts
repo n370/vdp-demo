@@ -6,9 +6,9 @@ export function sumWorkItemsTotal(workItems: any[]): number {
     return workItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
 }
 
-export async function getCoverPhoto() {
+export async function getDynamicImage() {
     const response = await axios({
-        url: "https://thispersondoesnotexist.com/image",
+        url: "https://thisartworkdoesnotexist.com/",
         method: "get",
         responseType: "arraybuffer",
         timeout: 3000,
@@ -17,6 +17,6 @@ export async function getCoverPhoto() {
     return response.data;
 }
 
-export async function getStaticCoverPhoto() {
-    return promises.readFile(join(__dirname, "..", "images", "image.jpg"));
+export async function getStaticImage(filename: string) {
+    return promises.readFile(join(__dirname, "..", "images", filename));
 }
