@@ -2,12 +2,11 @@ import { FC } from "react";
 import { Font, Document, Image, Page, View, Text } from "@react-pdf/renderer";
 import { join } from "path";
 import { v4 as uuid } from "uuid";
-import { format, endOfMonth } from "date-fns";
+import { format, endOfMonth, parse } from "date-fns";
 import styles from "./styles";
-import { sumWorkItemsTotal } from "../../utils";
+import { generateQR, sumWorkItemsTotal } from "../../utils";
 import * as translations from "./translations";
 import { draw, pieChart } from "./charts";
-import { generateQR } from "./qr";
 
 interface TemplateProps {
     locale: keyof typeof translations;
@@ -16,6 +15,14 @@ interface TemplateProps {
 
 export const Template: FC<TemplateProps> = ({ locale, data }) => {
     const translation = translations[locale];
+    const now = new Date();
+    const invoiceNumber = data.metadata.invoiceNumber || uuid();
+    const invoiceDate = data.metadata.invoiceDate
+        ? parse(data.metadata.invoiceDate, "y-MM-dd", now)
+        : now;
+    const dueDate = data.metadata.dueDate
+        ? parse(data.metadata.dueDate, "y-MM-dd", now)
+        : endOfMonth(now);
 
     Font.register({
         family: "Roboto",
@@ -126,7 +133,9 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                             >
                                 {translation.invoiceNumber}:{" "}
                             </Text>
-                            <Text style={{ fontSize: 10 }}>{uuid()}</Text>
+                            <Text style={{ fontSize: 10 }}>
+                                {invoiceNumber}
+                            </Text>
                         </View>
                         <View style={{ flexDirection: "row" }}>
                             <Text
@@ -139,7 +148,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                                 {translation.invoiceDate}:{" "}
                             </Text>
                             <Text style={{ fontSize: 10 }}>
-                                {format(Date.now(), "MM/dd/yyyy")}
+                                {format(invoiceDate, "MM/dd/yyyy")}
                             </Text>
                         </View>
                         <View style={{ flexDirection: "row" }}>
@@ -153,7 +162,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                                 {translation.dueDate}:{" "}
                             </Text>
                             <Text style={{ fontSize: 10 }}>
-                                {format(endOfMonth(Date.now()), "MM/dd/yyyy")}
+                                {format(dueDate, "MM/dd/yyyy")}
                             </Text>
                         </View>
                     </View>
@@ -418,7 +427,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                         <Image
                             style={{ width: 80 }}
                             src={async () => ({
-                                data: await generateQR("Yep, QRs work too!"),
+                                data: await generateQR(invoiceNumber),
                                 format: "png",
                             })}
                         />
