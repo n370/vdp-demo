@@ -7,6 +7,7 @@ import styles from "./styles";
 import { sumWorkItemsTotal } from "../../utils";
 import * as translations from "./translations";
 import { draw, pieChart } from "./charts";
+import { generateQR } from "./qr";
 
 interface TemplateProps {
     locale: keyof typeof translations;
@@ -321,7 +322,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                         </Text>
                     </View>
                 </View>
-                <View>
+                <View style={{ margin: `10 0` }}>
                     <Image
                         src={async () => ({
                             data: await draw((svg: any) =>
@@ -331,68 +332,96 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                         })}
                     />
                 </View>
-                <View style={{ fontSize: 11 }}>
-                    <View style={{ marginBottom: 5 }}>
+                <View style={{ flexDirection: "row" }}>
+                    <View style={{ flexBasis: "50%", fontSize: 11 }}>
+                        <View style={{ marginBottom: 5 }}>
+                            <Text
+                                style={{
+                                    textTransform: "uppercase",
+                                    fontWeight: "bold",
+                                    fontSize: 12,
+                                }}
+                            >
+                                {translation.paymentInstructionsTitle}
+                            </Text>
+                            <Text>
+                                {translation.paymentInstructionsSubTittle}:
+                            </Text>
+                        </View>
                         <Text
                             style={{
+                                fontWeight: "medium",
                                 textTransform: "uppercase",
-                                fontWeight: "bold",
-                                fontSize: 12,
                             }}
                         >
-                            {translation.paymentInstructionsTitle}
+                            {data.issuer.bankDetails.name}
                         </Text>
-                        <Text>{translation.paymentInstructionsSubTittle}:</Text>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "flex-end",
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 10,
+                                    fontWeight: "medium",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                {translation.bankAccountBIC}:{" "}
+                            </Text>
+                            <Text>{data.issuer.bankDetails.bic}</Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "flex-end",
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 10,
+                                    fontWeight: "medium",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                {translation.bankAccountName}:{" "}
+                            </Text>
+                            <Text>{data.issuer.bankDetails.accountName}</Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                alignItems: "flex-end",
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: 10,
+                                    fontWeight: "medium",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                {translation.bankAccountNumber}:{" "}
+                            </Text>
+                            <Text>{data.issuer.bankDetails.accountNumber}</Text>
+                        </View>
                     </View>
-                    <Text
+                    <View
                         style={{
-                            fontWeight: "medium",
-                            textTransform: "uppercase",
+                            flexBasis: "50%",
+                            alignItems: "flex-end",
+                            justifyContent: "flex-end",
                         }}
                     >
-                        {data.issuer.bankDetails.name}
-                    </Text>
-                    <View
-                        style={{ flexDirection: "row", alignItems: "flex-end" }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: 10,
-                                fontWeight: "medium",
-                                textTransform: "uppercase",
-                            }}
-                        >
-                            {translation.bankAccountBIC}:{" "}
-                        </Text>
-                        <Text>{data.issuer.bankDetails.bic}</Text>
-                    </View>
-                    <View
-                        style={{ flexDirection: "row", alignItems: "flex-end" }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: 10,
-                                fontWeight: "medium",
-                                textTransform: "uppercase",
-                            }}
-                        >
-                            {translation.bankAccountName}:{" "}
-                        </Text>
-                        <Text>{data.issuer.bankDetails.accountName}</Text>
-                    </View>
-                    <View
-                        style={{ flexDirection: "row", alignItems: "flex-end" }}
-                    >
-                        <Text
-                            style={{
-                                fontSize: 10,
-                                fontWeight: "medium",
-                                textTransform: "uppercase",
-                            }}
-                        >
-                            {translation.bankAccountNumber}:{" "}
-                        </Text>
-                        <Text>{data.issuer.bankDetails.accountNumber}</Text>
+                        <Image
+                            style={{ width: 80 }}
+                            src={async () => ({
+                                data: await generateQR("Yep, QRs work too!"),
+                                format: "png",
+                            })}
+                        />
                     </View>
                 </View>
             </Page>
