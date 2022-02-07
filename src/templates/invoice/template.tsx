@@ -258,7 +258,9 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                                     flexBasis: "50%",
                                 }}
                             >
-                                <Text>{item.description}</Text>
+                                <Text style={{ textAlign: "center" }}>
+                                    {item.description}
+                                </Text>
                             </View>
                             <View
                                 style={{
@@ -331,7 +333,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                         </Text>
                     </View>
                 </View>
-                <View style={{ margin: `10 0` }}>
+                {/* <View style={{ margin: `10 0` }}>
                     <Image
                         src={async () => ({
                             data: await draw((svg: any) =>
@@ -340,7 +342,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                             format: "png",
                         })}
                     />
-                </View>
+                </View> */}
                 <View style={{ flexDirection: "row" }}>
                     <View style={{ flexBasis: "50%", fontSize: 11 }}>
                         <View style={{ marginBottom: 5 }}>
@@ -417,7 +419,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                             <Text>{data.issuer.bankDetails.accountNumber}</Text>
                         </View>
                     </View>
-                    <View
+                    {/* <View
                         style={{
                             flexBasis: "50%",
                             alignItems: "flex-end",
@@ -431,7 +433,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                                 format: "png",
                             })}
                         />
-                    </View>
+                    </View> */}
                 </View>
             </Page>
         </Document>
