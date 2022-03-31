@@ -323,6 +323,7 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
                                 textTransform: "uppercase",
                                 fontWeight: "bold",
                                 fontSize: 12,
+                                marginRight: 20,
                             }}
                         >
                             {translation.balanceDue}
