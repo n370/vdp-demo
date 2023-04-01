@@ -22,6 +22,7 @@ interface TemplateProps {
       invoiceNumber: string;
       invoiceDate: string;
       dueDate: string;
+      gratitudeMessage: string;
     };
     issuer: {
       fullName: string;
@@ -40,6 +41,7 @@ interface TemplateProps {
         bic?: string;
         sortCode?: string;
         branchCode?: string;
+        iban?: string;
         currency: Currency;
         guidelines: string;
       };
@@ -321,7 +323,9 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
               justifyContent: "center",
             }}
           >
-            <Text style={{ fontSize: 14 }}>{translation.gratitudeMessage}</Text>
+            <Text style={{ fontSize: 14 }}>
+              {data.metadata.gratitudeMessage || translation.gratitudeMessage}
+            </Text>
           </View>
           <View
             style={{
@@ -388,115 +392,52 @@ export const Template: FC<TemplateProps> = ({ locale, data }) => {
             >
               {data.issuer.bankDetails.name}
             </Text>
-            {data.issuer.bankDetails.accountAddress && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text
+            {[
+              {
+                data: data.issuer.bankDetails.accountAddress,
+                label: translation.bankAccountAddress,
+              },
+              {
+                data: data.issuer.bankDetails.accountName,
+                label: translation.bankAccountName,
+              },
+              {
+                data: data.issuer.bankDetails.accountNumber,
+                label: translation.bankAccountNumber,
+              },
+              {
+                data: data.issuer.bankDetails.bic,
+                label: translation.bankAccountBIC,
+              },
+              {
+                data: data.issuer.bankDetails.sortCode,
+                label: translation.bankAccountSortCode,
+              },
+              {
+                data: data.issuer.bankDetails.iban,
+                label: translation.bankAccountIBAN,
+              },
+            ].map(({ data, label }) =>
+              data ? (
+                <View
+                  key={`${label}-${data}`}
                   style={{
-                    fontSize: 10,
-                    fontWeight: "medium",
-                    textTransform: "uppercase",
+                    flexDirection: "row",
+                    alignItems: "flex-end",
                   }}
                 >
-                  {translation.bankAccountAddress}:{" "}
-                </Text>
-                <Text>{data.issuer.bankDetails.accountAddress}</Text>
-              </View>
-            )}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "flex-end",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 10,
-                  fontWeight: "medium",
-                  textTransform: "uppercase",
-                }}
-              >
-                {translation.bankAccountName}:{" "}
-              </Text>
-              <Text>{data.issuer.bankDetails.accountName}</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "flex-end",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 10,
-                  fontWeight: "medium",
-                  textTransform: "uppercase",
-                }}
-              >
-                {translation.bankAccountNumber}:{" "}
-              </Text>
-              <Text>{data.issuer.bankDetails.accountNumber}</Text>
-            </View>
-            {data.issuer.bankDetails.branchCode && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 10,
-                    fontWeight: "medium",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {translation.bankAccountBranchCode}:{" "}
-                </Text>
-                <Text>{data.issuer.bankDetails.branchCode}</Text>
-              </View>
-            )}
-            {data.issuer.bankDetails.bic && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 10,
-                    fontWeight: "medium",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {translation.bankAccountBIC}:{" "}
-                </Text>
-                <Text>{data.issuer.bankDetails.bic}</Text>
-              </View>
-            )}
-            {data.issuer.bankDetails.sortCode && (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 10,
-                    fontWeight: "medium",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {translation.bankAccountSortCode}:{" "}
-                </Text>
-                <Text>{data.issuer.bankDetails.sortCode}</Text>
-              </View>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      fontWeight: "medium",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {`${label}: `}
+                  </Text>
+                  <Text>{data}</Text>
+                </View>
+              ) : null
             )}
           </View>
           {/* <View

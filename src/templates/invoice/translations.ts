@@ -1,25 +1,26 @@
 export const en_US = {
-    title: "Invoice",
-    invoiceNumber: "Invoice No",
-    invoiceDate: "Invoice Date",
-    dueDate: "Due Date",
-    dateFormat: "MM/dd/yyyy",
-    billTo: "Bill to",
-    workItemDescription: "Description",
-    workItemQuantity: "Qty",
-    workItemUnitPrice: "Unit price",
-    workItemTotal: "Total",
-    gratitudeMessage: "Thank you for your business!",
-    balanceDue: "Balance due",
-    paymentInstructionsTitle: "Payment Instructions",
-    paymentInstructionsSubTittle: "Please make a bank transfer to",
-    bankAccountName: "Account Name",
-    bankAccountAddress: "Bank Address",
-    bankAccountNumber: "Account Number",
-    bankAccountBIC: "BIC",
-    bankAccountSortCode: "Sort Code",
-    bankAccountBranchCode: "Branch code (BSB)"
-}
+  title: "Invoice",
+  invoiceNumber: "Invoice No",
+  invoiceDate: "Invoice Date",
+  dueDate: "Due Date",
+  dateFormat: "MM/dd/yyyy",
+  billTo: "Bill to",
+  workItemDescription: "Description",
+  workItemQuantity: "Qty",
+  workItemUnitPrice: "Unit price",
+  workItemTotal: "Total",
+  gratitudeMessage: "Thank you for your business!",
+  balanceDue: "Balance due",
+  paymentInstructionsTitle: "Payment Instructions",
+  paymentInstructionsSubTittle: "Please make a bank transfer to",
+  bankAccountName: "Account Name",
+  bankAccountAddress: "Bank Address",
+  bankAccountNumber: "Account Number",
+  bankAccountBIC: "BIC",
+  bankAccountSortCode: "Sort Code",
+  bankAccountBranchCode: "Branch code (BSB)",
+  bankAccountIBAN: "IBAN",
+};
 
 export const en_GB = {
   title: "Invoice",
@@ -41,8 +42,9 @@ export const en_GB = {
   bankAccountNumber: "Account Number",
   bankAccountBIC: "BIC",
   bankAccountSortCode: "Sort Code",
-  bankAccountBranchCode: "Branch code (BSB)"
-}
+  bankAccountBranchCode: "Branch code (BSB)",
+  bankAccountIBAN: "IBAN",
+};
 
 export const en_AU = {
   title: "Invoice",
@@ -64,28 +66,31 @@ export const en_AU = {
   bankAccountNumber: "Account Number",
   bankAccountBIC: "BIC",
   bankAccountSortCode: "Sort Code",
-  bankAccountBranchCode: "Branch code (BSB)"
-}
+  bankAccountBranchCode: "Branch code (BSB)",
+  bankAccountIBAN: "IBAN",
+};
 
 export const pt_BR = {
-    title: "Fatura",
-    invoiceNumber: "Número da fatura",
-    invoiceDate: "Data de emissão",
-    dueDate: "Data de vencimento",
-    dateFormat: "dd/MM/yyyy",
-    billTo: "Se fatura a",
-    workItemDescription: "Descrição",
-    workItemQuantity: "Quantidade",
-    workItemUnitPrice: "Preço unitário",
-    workItemTotal: "Total",
-    gratitudeMessage: "Obrigado por trabalhar conosco!",
-    balanceDue: "Total a pagar",
-    paymentInstructionsTitle: "Instruções para pagamento",
-    paymentInstructionsSubTittle: "Favor realizar uma transferência bancária para",
-    bankAccountName: "Beneficiário",
-    bankAccountAddress: "Endereço do Banco",
-    bankAccountNumber: "Número da Conta",
-    bankAccountBIC: "BIC",
-    bankAccountSortCode: "Sort Code",
-    bankAccountBranchCode: "Branch code (BSB)"
-}
+  title: "Fatura",
+  invoiceNumber: "Número da fatura",
+  invoiceDate: "Data de emissão",
+  dueDate: "Data de vencimento",
+  dateFormat: "dd/MM/yyyy",
+  billTo: "Se fatura a",
+  workItemDescription: "Descrição",
+  workItemQuantity: "Quantidade",
+  workItemUnitPrice: "Preço unitário",
+  workItemTotal: "Total",
+  gratitudeMessage: "Obrigado por trabalhar conosco!",
+  balanceDue: "Total a pagar",
+  paymentInstructionsTitle: "Instruções para pagamento",
+  paymentInstructionsSubTittle:
+    "Favor realizar uma transferência bancária para",
+  bankAccountName: "Beneficiário",
+  bankAccountAddress: "Endereço do Banco",
+  bankAccountNumber: "Número da Conta",
+  bankAccountBIC: "BIC",
+  bankAccountSortCode: "Sort Code",
+  bankAccountBranchCode: "Branch code (BSB)",
+  bankAccountIBAN: "IBAN",
+};
