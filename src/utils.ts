@@ -21,7 +21,7 @@ export async function getDynamicImage() {
 }
 
 export async function getStaticImage(filename: string) {
-    return promises.readFile(join(__dirname, "..", "images", filename));
+    return promises.readFile(join(__dirname, "images", filename));
 }
 
 export async function generateQR(data: string, opts: any = {}) {

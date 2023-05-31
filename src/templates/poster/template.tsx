@@ -14,18 +14,19 @@ import { generateQR, getDynamicImage, getStaticImage } from "../../utils";
 import { format } from "date-fns";
 import { networkInterfaces } from "os";
 
-interface TemplateProps {
-    dynamic: boolean;
+export interface TemplateProps {
+    input: {
+        dynamic: boolean;
+    }
 }
 
-export const Template: FC<TemplateProps> = ({ dynamic }) => {
+export const Template: FC<TemplateProps> = ({ input }) => {
     Font.register({
         family: "FingerPaint",
         fonts: [
             {
                 src: join(
                     __dirname,
-                    "..",
                     "fonts",
                     "Finger_Paint",
                     "FingerPaint-Regular.ttf"
@@ -41,7 +42,6 @@ export const Template: FC<TemplateProps> = ({ dynamic }) => {
             {
                 src: join(
                     __dirname,
-                    "..",
                     "fonts",
                     "DM_Sans",
                     "DMSans-Medium.ttf"
@@ -58,7 +58,7 @@ export const Template: FC<TemplateProps> = ({ dynamic }) => {
                     <Image
                         style={{ transform: "scale(2)" }}
                         src={async () => ({
-                            data: dynamic
+                            data: input.dynamic
                                 ? await getDynamicImage()
                                 : await getStaticImage("cover.jpg"),
                             format: "jpg",

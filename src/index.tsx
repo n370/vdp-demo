@@ -1,15 +1,29 @@
 import ReactPDF from "@react-pdf/renderer";
-import { Template as InvoiceTemplate } from "./templates/invoice/template";
-import { Template as PosterTemplate } from "./templates/poster/template";
-import * as invoiceTranslations from "./templates/invoice/translations";
+import {
+    TemplateProps as PosterTemplateProps,
+    Template as PosterTemplate,
+} from "./templates/poster/template";
+import {
+    TemplateProps as InvoiceTemplateProps,
+    Template as InvoiceTemplate,
+} from "./templates/invoice/template";
+import {
+    TemplateProps as CvTemplateProps,
+    Template as CvTemplate,
+} from "./templates/cv/template";
 
-export async function renderInvoiceTemplate(
-    data: any,
-    locale: keyof typeof invoiceTranslations = "en_US"
+export async function renderPosterTemplate(
+    input: PosterTemplateProps["input"]
 ) {
-    return ReactPDF.renderToStream(<InvoiceTemplate data={data} locale={locale} />);
+    return ReactPDF.renderToStream(<PosterTemplate input={input} />);
 }
 
-export async function renderPosterTemplate(dynamic: boolean) {
-    return ReactPDF.renderToStream(<PosterTemplate dynamic={dynamic}/>);
+export async function renderInvoiceTemplate(
+    input: InvoiceTemplateProps["input"]
+) {
+    return ReactPDF.renderToStream(<InvoiceTemplate input={input} />);
+}
+
+export async function renderCvTemplate(input: CvTemplateProps["input"]) {
+    return ReactPDF.renderToStream(<CvTemplate input={input} />);
 }
