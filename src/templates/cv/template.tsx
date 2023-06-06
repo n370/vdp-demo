@@ -1,5 +1,5 @@
 import { join } from "path";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import {
     Font,
     Document,
@@ -11,7 +11,10 @@ import {
 } from "@react-pdf/renderer";
 import styles from "./styles";
 import { generateQR, getDynamicImage, getStaticImage } from "../../utils";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
+
+const formatDate = (date: string) =>
+    format(parse(date, "yyyy-MM-dd", new Date()), "MMM, yyyy");
 
 export interface TemplateProps {
     input: {
@@ -113,18 +116,14 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                         <Text style={styles.textSmall}>
                             {input.data.header.phoneNumber}
                         </Text>
-                        <Text style={[styles.textSmall, styles.textSeparator]}>
-                            |
-                        </Text>
+                        <Text style={[styles.textSmall, styles.pipe]}>|</Text>
                         <Text style={styles.textSmall}>
                             {input.data.header.emailAddress.replace(
                                 " at ",
                                 "@"
                             )}
                         </Text>
-                        <Text style={[styles.textSmall, styles.textSeparator]}>
-                            |
-                        </Text>
+                        <Text style={[styles.textSmall, styles.pipe]}>|</Text>
                         <Text style={styles.textSmall}>
                             {input.data.header.fiscalAddress}
                         </Text>
@@ -136,14 +135,11 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                         >
                             {input.data.header.webpageUrl}
                         </Link>
-                        <Text style={[styles.textSmall, styles.textSeparator]}>
-                            |
-                        </Text>
+                        <Text style={[styles.textSmall, styles.pipe]}>|</Text>
                         {input.data.header.socialNetworkProfiles.map(
                             (social, index, input) => (
-                                <>
+                                <Fragment key={index}>
                                     <Link
-                                        key={index}
                                         style={styles.textSmall}
                                         src={social.url}
                                     >
@@ -153,90 +149,262 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                         <Text
                                             style={[
                                                 styles.textSmall,
-                                                styles.textSeparator,
+                                                styles.pipe,
                                             ]}
                                         >
                                             |
                                         </Text>
                                     )}
-                                </>
+                                </Fragment>
                             )
                         )}
                     </View>
                 </View>
                 <View>
-                    <Text style={[styles.textMedium, styles.textBold]}>
+                    <Text
+                        style={[
+                            styles.textMedium,
+                            styles.textBold,
+                            styles.heading1,
+                        ]}
+                    >
                         Skills and Qualifications
                     </Text>
-                    {input.data.skillsAndQualifications.map((skill, i) => (
-                        <Text key={i}>{skill}</Text>
-                    ))}
+                    <View style={[styles.indentedTextBlock]}>
+                        {input.data.skillsAndQualifications.map((skill, i) => (
+                            <Text key={i} style={styles.textSmall}>
+                                {skill}
+                            </Text>
+                        ))}
+                    </View>
                 </View>
                 <View>
-                    <Text style={[styles.textMedium, styles.textBold]}>
+                    <Text
+                        style={[
+                            styles.textMedium,
+                            styles.textBold,
+                            styles.heading1,
+                        ]}
+                    >
                         Spoken Languages
                     </Text>
-                    {input.data.spokenLanguages.map((language) => (
-                        <View key={language.name}>
-                            <Text>{language.name}</Text>
-                            <Text>{language.level}</Text>
-                        </View>
-                    ))}
+                    <View style={[styles.indentedTextBlock]}>
+                        {input.data.spokenLanguages.map((language, index) => (
+                            <View
+                                key={index}
+                                style={[styles.row, styles.textSmall]}
+                            >
+                                <Text>{language.name}</Text>
+                                <Text
+                                    style={{ marginLeft: "3pt" }}
+                                >{`(${language.level})`}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
                 <View>
-                    <Text style={[styles.textMedium, styles.textBold]}>
+                    <Text
+                        style={[
+                            styles.textMedium,
+                            styles.textBold,
+                            styles.heading1,
+                        ]}
+                    >
                         Employment History
                     </Text>
-                    {input.data.employmentHistory.map((employer, i) => (
-                        <View key={i}>
-                            <Text>{employer.companyName}</Text>
-                            <Text>{employer.role}</Text>
-                            <Text>{employer.location}</Text>
-                            <Text>{employer.start}</Text>
-                            <Text>{employer.end || "Present"}</Text>
-                            <View>
-                                {employer.description.map((paragraph, i) => (
-                                    <Text key={i}>{paragraph}</Text>
-                                ))}
+                    {input.data.employmentHistory.map(
+                        (employer, index, input) => (
+                            <View
+                                key={index}
+                                style={[
+                                    {
+                                        marginBottom:
+                                            index !== input.length - 1
+                                                ? "0.5cm"
+                                                : "0",
+                                    },
+                                ]}
+                            >
+                                <View
+                                    minPresenceAhead={80}
+                                    style={[styles.row, styles.spaceBetween]}
+                                >
+                                    <View style={[styles.row]}>
+                                        <Text
+                                            style={[
+                                                styles.textSmall,
+                                                styles.textBold,
+                                            ]}
+                                        >
+                                            {employer.role}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.textSmall,
+                                                styles.comma,
+                                            ]}
+                                        >
+                                            ,
+                                        </Text>
+                                        <Text style={[styles.textSmall]}>
+                                            {employer.companyName}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.textSmall,
+                                                styles.comma,
+                                            ]}
+                                        >
+                                            ,
+                                        </Text>
+                                        <Text style={[styles.textSmall]}>
+                                            {employer.location}
+                                        </Text>
+                                    </View>
+                                    <View style={[styles.row]}>
+                                        <Text style={[styles.textSmall]}>
+                                            {formatDate(employer.start)}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                styles.textSmall,
+                                                styles.emDash,
+                                            ]}
+                                        >
+                                            —
+                                        </Text>
+                                        <Text style={[styles.textSmall]}>
+                                            {employer.end
+                                                ? formatDate(employer.end)
+                                                : "Present"}
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View>
+                                    {employer.description.map(
+                                        (paragraph, i) => (
+                                            <Text
+                                                key={i}
+                                                minPresenceAhead={1}
+                                                style={[
+                                                    styles.textSmall,
+                                                    styles.paragraph,
+                                                ]}
+                                            >
+                                                {paragraph}
+                                            </Text>
+                                        )
+                                    )}
+                                </View>
+                                <View>
+                                    <Text style={[styles.textSmall]}>
+                                        {employer.tools.reduce(
+                                            (text, tool, index, input) => {
+                                                text += tool;
+                                                if (
+                                                    index !==
+                                                    input.length - 1
+                                                ) {
+                                                    text += ", ";
+                                                } else {
+                                                    text += ".";
+                                                }
+                                                return text;
+                                            },
+                                            "Technologies used: "
+                                        )}
+                                    </Text>
+                                </View>
                             </View>
-                            <View>
-                                {employer.tools.map((tool, i) => (
-                                    <Text key={i}>{tool}</Text>
-                                ))}
-                            </View>
-                        </View>
-                    ))}
+                        )
+                    )}
                 </View>
                 <View>
-                    <Text style={[styles.textMedium, styles.textBold]}>
+                    <Text
+                        style={[
+                            styles.textMedium,
+                            styles.textBold,
+                            styles.heading1,
+                        ]}
+                    >
                         Skills
                     </Text>
-                    {input.data.skills.map((skill, i) => (
-                        <Text key={i}>{skill}</Text>
-                    ))}
+                    <Text style={[styles.textSmall]}>
+                        {input.data.skills.reduce(
+                            (text, skill, index, input) => {
+                                text += skill;
+                                if (index !== input.length - 1) {
+                                    text += ", ";
+                                } else {
+                                    text += ".";
+                                }
+                                return text;
+                            },
+                            ""
+                        )}
+                    </Text>
                 </View>
                 <View>
-                    <Text style={[styles.textMedium, styles.textBold]}>
+                    <Text
+                        style={[
+                            styles.textMedium,
+                            styles.textBold,
+                            styles.heading1,
+                        ]}
+                    >
                         Education
                     </Text>
-                    {input.data.education.map((site) => (
-                        <View key={site.title}>
-                            <Text>{site.title}</Text>
-                            <Text>{site.grade}</Text>
-                            <Text>{site.institution}</Text>
-                            <Text>{site.location}</Text>
-                            <Text>{site.start}</Text>
-                            <Text>{site.end || "Present"}</Text>
+                    {input.data.education.map((site, index) => (
+                        <View
+                            key={index}
+                            style={[styles.row, styles.spaceBetween]}
+                        >
+                            <View style={[styles.row]}>
+                                <Text style={[styles.textSmall]}>
+                                    {[
+                                        site.title,
+                                        site.grade,
+                                        site.institution,
+                                        site.location,
+                                    ].reduce((text, datum, index, input) => {
+                                        text += datum;
+                                        if (index !== input.length - 1) {
+                                            text += ", ";
+                                        }
+                                        return text;
+                                    }, "")}
+                                </Text>
+                            </View>
+                            <View style={[styles.row]}>
+                                <Text
+                                    style={[
+                                        styles.textSmall,
+                                        { textAlign: "right" },
+                                    ]}
+                                >
+                                    {formatDate(site.start)}
+                                </Text>
+                                <Text style={[styles.textSmall, styles.emDash]}>
+                                    —
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.textSmall,
+                                        { width: "1.7cm", textAlign: "left" },
+                                    ]}
+                                >
+                                    {site.end
+                                        ? formatDate(site.end)
+                                        : "Present"}
+                                </Text>
+                            </View>
                         </View>
                     ))}
                 </View>
-                <View
+                <Text
                     fixed
-                    render={({ pageNumber }) => (
-                        <View>
-                            <Text>{pageNumber}</Text>
-                        </View>
-                    )}
+                    style={[styles.footer]}
+                    render={({ pageNumber }) => pageNumber}
                 />
             </Page>
         </Document>
