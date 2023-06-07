@@ -47,11 +47,25 @@ exports.getPoster = (req, res) => {
  * @param {!express:Response} res HTTP response context.
  */
 exports.getCv = (req, res) => {
-    renderCvTemplate({ data: req.body }).then((stream) => {
-        res.type("pdf");
-        res.status(200);
-        stream
-            .pipe(res)
-            .on("close", () => console.log("Document generated successfully"));
-    });
+    res.set("Access-Control-Allow-Origin", "*");
+
+    if (req.method === "OPTIONS") {
+        // Send response to OPTIONS requests
+        res.set("Access-Control-Allow-Methods", "GET");
+        res.set("Access-Control-Allow-Headers", "Content-Type");
+        res.set("Access-Control-Max-Age", "3600");
+        res.status(204).send("");
+    }
+
+    if (req.method === "POST") {
+        renderCvTemplate(req.body).then((stream) => {
+            res.type("pdf");
+            res.status(200);
+            stream
+                .pipe(res)
+                .on("close", () =>
+                    console.log("Document generated successfully")
+                );
+        });
+    }
 };
