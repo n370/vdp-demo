@@ -1,5 +1,5 @@
 const chokidar = require("chokidar");
-const { spawnSync } = require("child_process");
+const { spawn } = require("child_process");
 const kill = require("kill-port");
 
 const templateFolderName = process.argv[2];
@@ -27,7 +27,7 @@ for (event of ["change"]) {
 
 async function main({ port, target }) {
     await kill(port, "tcp");
-    spawnSync(
+    spawn(
         "npx",
         [
             "@google-cloud/functions-framework",
