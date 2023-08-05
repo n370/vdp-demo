@@ -438,6 +438,7 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                             style={{
                                 fontWeight: "medium",
                                 textTransform: "uppercase",
+                                marginBottom: "5"
                             }}
                         >
                             {input.data.issuer.bankDetails.name}
@@ -475,7 +476,7 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                     key={`${label}-${data}`}
                                     style={{
                                         flexDirection: "row",
-                                        alignItems: "flex-end",
+                                        alignItems: "flex-start",
                                     }}
                                 >
                                     <Text
