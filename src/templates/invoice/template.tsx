@@ -467,6 +467,10 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                 label: translation.bankAccountSortCode,
                             },
                             {
+                                data: input.data.issuer.bankDetails.branchCode,
+                                label: translation.bankAccountBranchCode,
+                            },
+                            {
                                 data: input.data.issuer.bankDetails.iban,
                                 label: translation.bankAccountIBAN,
                             },
