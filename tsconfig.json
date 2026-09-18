@@ -4,7 +4,6 @@
         "lib": ["esnext"],
         "target": "es6",
         "module": "esnext",
-        "moduleResolution": "node",
         "outDir": "./dist",
         "jsx": "react-jsx",
         "forceConsistentCasingInFileNames": true,

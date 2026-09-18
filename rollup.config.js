@@ -1,4 +1,4 @@
-const typescript = require("@rollup/plugin-typescript");
+const sucrase = require("@rollup/plugin-sucrase");
 const { nodeResolve } = require("@rollup/plugin-node-resolve");
 const commonjs = require("@rollup/plugin-commonjs");
 const copy = require("rollup-plugin-copy");
@@ -9,6 +9,7 @@ module.exports = {
         file: "dist/index.js",
         format: "cjs",
     },
+    context: "global",
     plugins: [
         copy({
             targets: [
@@ -18,6 +19,10 @@ module.exports = {
         }),
         nodeResolve({ modulesOnly: true, resolveOnly: [/d3/, /internmap/] }),
         commonjs(),
-        typescript(),
+        sucrase({
+            exclude: ["node_modules/**"],
+            transforms: ["typescript", "jsx"],
+            jsxRuntime: "automatic",
+        }),
     ],
 };

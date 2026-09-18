@@ -1,6 +1,6 @@
 const chokidar = require("chokidar");
 const { spawn } = require("child_process");
-const kill = require("kill-port");
+const kill = require("tree-kill");
 
 const templateFolderName = process.argv[2];
 
@@ -25,9 +25,14 @@ for (event of ["change"]) {
     });
 }
 
+const pidList = [];
+
 async function main({ port, target }) {
-    await kill(port, "tcp");
-    spawn(
+    for (const id of pidList) {
+        kill(id);
+    }
+
+    const { pid } = spawn(
         "npx",
         [
             "@google-cloud/functions-framework",
@@ -36,6 +41,8 @@ async function main({ port, target }) {
         ],
         {
             stdio: "inherit",
-        }
+        },
     );
+
+    pidList.push(pid);
 }

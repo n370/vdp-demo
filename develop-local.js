@@ -8,8 +8,8 @@ if (!templateFolderName) {
 }
 
 const watcher = chokidar.watch([
-    `./src/*.*`,
-    `./src/templates/${templateFolderName}/**/*.*`,
+    `./src/`,
+    `./src/templates/${templateFolderName}/`,
 ]);
 
 main(templateFolderName);
