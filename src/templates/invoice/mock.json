@@ -42,6 +42,166 @@
                 "price": 15,
                 "currency": "USD"
             }
-        ]
+        ],
+        "timesheet": {
+            "weeks": [
+                {
+                    "days": [
+                        {
+                            "hours": 2,
+                            "date": "2026-09-07",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-08",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-09",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-10",
+                            "summary": ""
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-11",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-12",
+                            "summary": "Day off."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-13",
+                            "summary": "Day off."
+                        }
+                    ]
+                },
+                {
+                    "days": [
+                        {
+                            "hours": 2,
+                            "date": "2026-09-07",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-08",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-09",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-10",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-11",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-12",
+                            "summary": "Day off."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-13",
+                            "summary": "Day off."
+                        }
+                    ]
+                },
+                {
+                    "days": [
+                        {
+                            "hours": 2,
+                            "date": "2026-09-07",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-08",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-09",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-10",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-11",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-12",
+                            "summary": "Day off."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-13",
+                            "summary": "Day off."
+                        }
+                    ]
+                },
+                {
+                    "days": [
+                        {
+                            "hours": 2,
+                            "date": "2026-09-07",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-08",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-09",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-10",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 2,
+                            "date": "2026-09-11",
+                            "summary": "Daily standup call. Talk about feature. Brush some features. Code reviews."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-12",
+                            "summary": "Day off."
+                        },
+                        {
+                            "hours": 0,
+                            "date": "2026-09-13",
+                            "summary": "Day off."
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }

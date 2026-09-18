@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Font, Document, Image, Page, View, Text } from "@react-pdf/renderer";
 import { join } from "path";
 import { v4 as uuid } from "uuid";
-import { format, endOfMonth, parse } from "date-fns";
+import { format, endOfMonth, parse, getDay } from "date-fns";
 import styles from "./styles";
 import { generateQR, sumWorkItemsTotal } from "../../utils";
 import * as translations from "./translations";
@@ -39,12 +39,14 @@ export interface TemplateProps {
                     accountAddress: string;
                     accountName: string;
                     accountNumber: string;
+                    accountType?: string;
+                    routingNumber?: string;
                     bic?: string;
                     sortCode?: string;
                     branchCode?: string;
                     iban?: string;
                     currency: Currency;
-                    guidelines: string;
+                    guidelines?: string;
                 };
             };
             billTo: {
@@ -61,6 +63,15 @@ export interface TemplateProps {
                 price: number;
                 currency: Currency;
             }>;
+            timesheet: {
+                weeks: Array<{
+                    days: Array<{
+                        hours: number;
+                        summary: string;
+                        date: string;
+                    }>;
+                }>;
+            };
         };
     };
 }
@@ -87,30 +98,15 @@ export const Template: FC<TemplateProps> = ({ input }) => {
         family: "Roboto",
         fonts: [
             {
-                src: join(
-                    __dirname,
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Regular.ttf"
-                ),
+                src: join(__dirname, "fonts", "Roboto", "Roboto-Regular.ttf"),
                 fontWeight: "normal",
             },
             {
-                src: join(
-                    __dirname,
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Medium.ttf"
-                ),
+                src: join(__dirname, "fonts", "Roboto", "Roboto-Medium.ttf"),
                 fontWeight: "medium",
             },
             {
-                src: join(
-                    __dirname,
-                    "fonts",
-                    "Roboto",
-                    "Roboto-Bold.ttf"
-                ),
+                src: join(__dirname, "fonts", "Roboto", "Roboto-Bold.ttf"),
                 fontWeight: "bold",
             },
         ],
@@ -438,7 +434,7 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                             style={{
                                 fontWeight: "medium",
                                 textTransform: "uppercase",
-                                marginBottom: "5"
+                                marginBottom: "5",
                             }}
                         >
                             {input.data.issuer.bankDetails.name}
@@ -452,6 +448,15 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                             {
                                 data: input.data.issuer.bankDetails.accountName,
                                 label: translation.bankAccountName,
+                            },
+                            {
+                                data: input.data.issuer.bankDetails.accountType,
+                                label: translation.bankAccountType,
+                            },
+                            {
+                                data: input.data.issuer.bankDetails
+                                    .routingNumber,
+                                label: translation.bankRoutingNumber,
                             },
                             {
                                 data: input.data.issuer.bankDetails
@@ -494,7 +499,7 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                     </Text>
                                     <Text>{data}</Text>
                                 </View>
-                            ) : null
+                            ) : null,
                         )}
                     </View>
                     {/* <View
@@ -513,7 +518,184 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                     />
                 </View> */}
                 </View>
+                <PageNumber />
             </Page>
+            {input.data.timesheet && (
+                <Page style={{ ...styles.page, fontFamily: "Roboto" }}>
+                    <View fixed style={{ marginBottom: 10 }}>
+                        <PageTitle title={"timesheet"} />
+                        <InvoiceNumber
+                            translation={translation}
+                            invoiceNumber={invoiceNumber}
+                        />
+                    </View>
+                    <View style={{ fontSize: 10 }}>
+                        {input.data.timesheet.weeks.map((week, i) => {
+                            return (
+                                <View
+                                    key={`week=${i}`}
+                                    style={{ marginTop: 10 }}
+                                >
+                                    <View
+                                        style={{
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontWeight: "bold",
+                                                textTransform: "uppercase",
+                                            }}
+                                        >
+                                            Week {i + 1}
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                marginLeft: 5,
+                                            }}
+                                        >{`(${week.days
+                                            .map(({ hours }) => hours)
+                                            .reduce(
+                                                (total, hours) => total + hours,
+                                                0,
+                                            )}h)`}</Text>
+                                    </View>
+                                    <View style={{ marginLeft: 20 }}>
+                                        {[
+                                            ["monday", 1],
+                                            ["tuesday", 2],
+                                            ["wednesday", 3],
+                                            ["thursday", 4],
+                                            ["friday", 5],
+                                            ["saturday", 6],
+                                            ["sunday", 0],
+                                        ].map((weekday, ii) => {
+                                            const { summary, date, hours } =
+                                                week.days.find(
+                                                    ({ date }) =>
+                                                        getDay(
+                                                            date.replace(
+                                                                "-",
+                                                                "/",
+                                                            ),
+                                                        ) === weekday[1],
+                                                ) || {};
+                                            return (
+                                                <View
+                                                    key={`week-${i}-weekday-${ii}`}
+                                                    wrap={false}
+                                                >
+                                                    <View
+                                                        style={{
+                                                            marginTop: 5,
+                                                            flexDirection:
+                                                                "row",
+                                                        }}
+                                                    >
+                                                        <Text
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                                textTransform:
+                                                                    "uppercase",
+                                                            }}
+                                                        >
+                                                            {weekday[0]}
+                                                        </Text>
+                                                        {date && (
+                                                            <Text
+                                                                style={{
+                                                                    marginLeft: 5,
+                                                                }}
+                                                            >
+                                                                [{date}]
+                                                            </Text>
+                                                        )}
+                                                        {typeof hours ===
+                                                            "number" && (
+                                                            <Text
+                                                                style={{
+                                                                    marginLeft: 2,
+                                                                }}
+                                                            >
+                                                                ({hours}h)
+                                                            </Text>
+                                                        )}
+                                                    </View>
+                                                    {summary ? (
+                                                        <Text>{summary}</Text>
+                                                    ): <Text style={{ color: "red"}}>FIXME! Summary is missing.</Text>}
+                                                </View>
+                                            );
+                                        })}
+                                    </View>
+                                </View>
+                            );
+                        })}
+                    </View>
+                    <PageNumber />
+                </Page>
+            )}
         </Document>
+    );
+};
+
+export const PageTitle: FC<any> = ({ title, ...props }) => {
+    return (
+        <View
+            style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+            }}
+            {...props}
+        >
+            <Text
+                style={{
+                    fontWeight: "bold",
+                    fontSize: 30,
+                    textTransform: "uppercase",
+                }}
+            >
+                {title}
+            </Text>
+        </View>
+    );
+};
+
+export const PageNumber: FC<any> = () => {
+    return (
+        <View
+            fixed
+            style={{
+                position: "absolute",
+                bottom: 20,
+                left: 0,
+                fontSize: 12,
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "100%",
+            }}
+            render={({ pageNumber, totalPages }: any) =>
+                totalPages > 1 ? <Text>{pageNumber}</Text> : <></>
+            }
+        />
+    );
+};
+
+export const InvoiceNumber: FC<any> = ({ translation, invoiceNumber }) => {
+    return (
+        <View style={{ flexDirection: "row" }}>
+            <Text
+                style={{
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    fontSize: 9,
+                }}
+            >
+                {translation.invoiceNumber}:{" "}
+            </Text>
+            <Text style={{ fontSize: 10 }}>{invoiceNumber}</Text>
+        </View>
     );
 };

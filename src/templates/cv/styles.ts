@@ -47,7 +47,7 @@ const styles: Record<string, Style> = {
         fontWeight: 700,
     },
     heading1: {
-        margin: "0.5cm 0 0.25cm 0",
+        margin: "0.15cm 0 0.20cm 0",
     },
     paragraph: {
         margin: "0.15cm 0",

@@ -1,6 +1,6 @@
 const page = {
     paddingTop: 80,
-    paddingBottom: 10,
+    paddingBottom: 50,
     paddingLeft: 60,
     paddingRight: 60
 }
