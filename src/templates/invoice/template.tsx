@@ -521,7 +521,13 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                 <PageNumber />
             </Page>
             {input.data.timesheet && (
-                <Page style={{ ...styles.page, fontFamily: "Roboto" }}>
+                <Page
+                    style={{
+                        ...styles.page,
+                        fontFamily: "Roboto",
+                        paddingBottom: 100,
+                    }}
+                >
                     <View fixed style={{ marginBottom: 10 }}>
                         <PageTitle title={"timesheet"} />
                         <InvoiceNumber
@@ -624,7 +630,16 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                                     </View>
                                                     {summary ? (
                                                         <Text>{summary}</Text>
-                                                    ): <Text style={{ color: "red"}}>FIXME! Summary is missing.</Text>}
+                                                    ) : (
+                                                        <Text
+                                                            style={{
+                                                                color: "red",
+                                                            }}
+                                                        >
+                                                            FIXME! Summary is
+                                                            missing.
+                                                        </Text>
+                                                    )}
                                                 </View>
                                             );
                                         })}
@@ -632,6 +647,28 @@ export const Template: FC<TemplateProps> = ({ input }) => {
                                 </View>
                             );
                         })}
+                    </View>
+                    <View
+                        fixed
+                        style={{
+                            position: "absolute",
+                            bottom: 60,
+                            left: 0,
+                            right: 0,
+                            paddingHorizontal: 60,
+                            fontSize: 9,
+                            textAlign: "center",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <Text>
+                            This timesheet is a non-exhaustive summary provided
+                            for informational purposes only and does not serve
+                            as a legally binding verification of the exact time
+                            spent on individual tasks.
+                        </Text>
                     </View>
                     <PageNumber />
                 </Page>
