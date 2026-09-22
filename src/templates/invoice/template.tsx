@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { Font, Document, Image, Page, View, Text } from "@react-pdf/renderer";
 import { join } from "path";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
+import { alphanumeric } from "nanoid-dictionary";
 import { format, endOfMonth, parse, getDay } from "date-fns";
 import styles from "./styles";
 import { generateQR, sumWorkItemsTotal } from "../../utils";
@@ -86,7 +87,8 @@ const currencySymbols: Record<Currency, string> = {
 export const Template: FC<TemplateProps> = ({ input }) => {
     const translation = translations[input.locale || "en_US"];
     const now = new Date();
-    const invoiceNumber = input.data.metadata.invoiceNumber || nanoid(20);
+    const invoiceNumber =
+        input.data.metadata.invoiceNumber || customAlphabet(alphanumeric, 20)();
     const invoiceDate = input.data.metadata.invoiceDate
         ? parse(input.data.metadata.invoiceDate, "y-MM-dd", now)
         : now;
